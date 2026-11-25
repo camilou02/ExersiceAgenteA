@@ -5,7 +5,9 @@
 package AgenteACONTROLLER;
 
 import AgentAMODEL.Line;
-import java.util.ArrayList;
+import Data.DataStore;
+import co.edu.sena.exerciseagentea.db.DBLine;
+
 import java.util.List;
 
 
@@ -15,12 +17,13 @@ import java.util.List;
  * @author Camilo
  */
 public class LineController implements ILineController {
-
-    public static List<Line> lineList = new ArrayList<>();
-    private static int nextNumber = 1;   
+  
+    private DBLine dbline = new DBLine();
+    public static List<Line> lineList = DataStore.getLineList();  
+    private int id;
 
     public LineController() {
-
+        
     }
 
   @Override
@@ -107,19 +110,12 @@ public void insert(Line line) throws Exception {
             throw new Exception("El código es obligatorio");
         }
 
-        Line line = null;  
-        for (Line l : lineList) {
-            if (l.getNumber() == number) {
-                line = l;
-                break;
-            }
-        }
 
-        return line;
+        return dbline.find(id);
     }
 
     @Override
     public List<Line> findAll() throws Exception {
-        return lineList;
+        return dbline.findALL();
     }
 }
