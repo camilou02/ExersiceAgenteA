@@ -53,8 +53,7 @@ public class DBConnection {
             }
             IO.println("Desconectado...");
         } catch (SQLException e) {
-            MessageUtils.getInstance().showError("Error desconectándose de la base de datos: " + 
-                                                    e.getMessage());
+            MessageUtils.getInstance().showError("Error desconectándose de la base de datos: " +  e.getMessage());
         }
     }
     

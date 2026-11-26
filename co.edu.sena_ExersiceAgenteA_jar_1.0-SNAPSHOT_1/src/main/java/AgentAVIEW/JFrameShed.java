@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * Fecha: 28/10/2026
- * @author afescobarv
+ * @author camilo
  * Objetivo: vista galpón
  */
 public class JFrameShed extends javax.swing.JFrame {

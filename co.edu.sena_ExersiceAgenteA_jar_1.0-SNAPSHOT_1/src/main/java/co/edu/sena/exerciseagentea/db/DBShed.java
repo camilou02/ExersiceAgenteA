@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Feccha: 26 / 11 / 2026
- * @author Juan José Lozano Holguín
+ * @author camilo
  * Objetivo: clase para conexion a tabla shed
  */
 public class DBShed extends DBConnection{

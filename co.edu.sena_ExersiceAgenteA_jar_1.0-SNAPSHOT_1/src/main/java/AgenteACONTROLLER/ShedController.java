@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Fecha: 28 / 10 / 2026
- * @author Juan José Lozano Holguín
+ * @author camilo
  * Objetivo: controlador galpón
  */
 public class ShedController implements IShedController{
