@@ -5,13 +5,13 @@
 package co.edu.sena.exerciseagentea.db;
 
 /**
- * descripcion: clase para conexion a base de datos fecha 
- * fecha 25/11/2026
- * @author Camilo
+ * Fecha: 25/11/2026
+ * @author camilo
+ * Objetivo: clase para probar conexion a base de datos
  */
 public class TestConnection {
     public static void main(String[] args) {
-        DBconnection dbc = new DBconnection();
+        DBConnection dbc = new DBConnection();
         dbc.connect();
         dbc.disconnect();
     }

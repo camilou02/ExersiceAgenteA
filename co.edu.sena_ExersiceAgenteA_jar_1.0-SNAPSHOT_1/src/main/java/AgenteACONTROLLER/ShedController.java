@@ -3,31 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package AgenteACONTROLLER;
-
 import AgentAMODEL.Shed;
-import static java.nio.file.Files.exists;
-import java.util.ArrayList;
+import co.edu.sena.exerciseagentea.db.DBShed;
+
 import java.util.List;
 
 /**
- * fecha:29/10/2026
- * objetivo: hacer el controlador de galpon
- * @author Camilo
+ * Fecha: 28 / 10 / 2026
+ * @author Juan José Lozano Holguín
+ * Objetivo: controlador galpón
  */
 public class ShedController implements IShedController{
 
-    public static List<Shed> shedList = new ArrayList<>();
-    
-    public ShedController(){
-       
-    }
-    
+    private DBShed dbShed = new DBShed();
     
     @Override
-    public void insert(Shed shed) throws Exception { 
+    public void insert(Shed shed) throws Exception {
         if(shed == null)
         {
-            throw new Exception("El galpón está vació");
+            throw new Exception("El galpón está vacío");
         }
         
         if(shed.getNumber() == 0)
@@ -35,19 +29,24 @@ public class ShedController implements IShedController{
             throw new Exception("El número es obligatorio");
         }
         
-        if("".equals(shed.getState()))
+        if("".equals(shed.getStatus()))
         {
             throw new Exception("El estado es obligatorio");
         }
         
-        shedList.add(shed);
+        dbShed.insert(shed);
     }
 
     @Override
     public void update(Shed shed) throws Exception {
         if(shed == null)
         {
-            throw new Exception("El galpón está vació");
+            throw new Exception("El galpón está vacío");
+        }
+        
+        if(shed.getId() == 0)
+        {
+            throw new Exception("El id es obligatorio");
         }
         
         if(shed.getNumber() == 0)
@@ -55,74 +54,50 @@ public class ShedController implements IShedController{
             throw new Exception("El número es obligatorio");
         }
         
-        if("".equals(shed.getState()))
+        if("".equals(shed.getStatus()))
         {
             throw new Exception("El estado es obligatorio");
         }
         
-        //VERIFICAR EXISTENCIA DEL GALPÓN A ACTUALIZAR
-        boolean exists = false;
-        for (int i = 0; i < shedList.size(); i++) {
-            if(shedList.get(i).getNumber() == shed.getNumber())
-            {
-                shedList.set(i, shed);   //ACTUALIZA
-                exists = true;
-                break;
-            }
+        //verificar existencia del galpon a actualizar
+        Shed shedExist = find(shed.getId());
+        if(shedExist == null)
+        {
+            throw new Exception("No existe el registro a actualizar");
         }
         
-        if(!exists)
-        {
-            throw new Exception("El galpón NO EXISTE!!!");
-        }
+        dbShed.update(shed);
     }
 
     @Override
-    public void delete(int number) throws Exception {
-        if(number == 0)
+    public void delete(int id) throws Exception {
+        if(id == 0)
         {
             throw new Exception("El número es obligatorio");
         }
         
-        //VERIFICAR EXISTENCIA DEL GALPÓN A ELIMINAR
-        boolean exists = false;
-        for (int i = 0; i < shedList.size(); i++) {
-            if(shedList.get(i).getNumber() == number)
-            {
-                shedList.remove(i);   //ELIMINAR
-                exists = true;
-                break;
-            }
+        //verificar existencia del galpon a eliminar
+        Shed shedExist = find(id);
+        if(shedExist == null)
+        {
+            throw new Exception("No existe el registro a actualizar");
         }
         
-        if(!exists)
-        {
-            throw new Exception("El galpón NO EXISTE!!!");
-        }
+        dbShed.delete(id);
     }
 
     @Override
-    public Shed find(int number) throws Exception {
-        if(number == 0)
+    public Shed find(int id) throws Exception {
+        if(id == 0)
         {
             throw new Exception("El número es obligatorio");
         }
         
-        Shed shed = null;  //VARIABLE TEMPORAL
-        for(Shed s : shedList){
-            if(s.getNumber() == number)
-            {
-                shed = s;
-                break;
-            }
-        }
-        
-        return shed;
+        return dbShed.find(id);
     }
 
     @Override
     public List<Shed> findAll() throws Exception {
-        return shedList;
+        return dbShed.findAll();
     }
 }
-

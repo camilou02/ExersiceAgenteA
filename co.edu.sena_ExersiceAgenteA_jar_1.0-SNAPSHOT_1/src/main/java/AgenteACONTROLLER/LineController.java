@@ -12,110 +12,87 @@ import java.util.List;
 
 
 /**
- * fecha:29/10/2026
- * objetivo: hacer el controlador de linea
- * @author Camilo
+ * Fecha: 29/10/2026
+ * @author camilo
+ * Objetivo: controlador linea
  */
 public class LineController implements ILineController {
-  
-    private DBLine dbline = new DBLine();
-    public static List<Line> lineList = DataStore.getLineList();  
-    private int id;
+    private DBLine dbLine = new DBLine();
+    private List<Line> lineList = DataStore.getLineList();
 
-    public LineController() {
-        
-    }
-
-  @Override
-public void insert(Line line) throws Exception {
-    if (line == null) {
-        throw new Exception("La línea está vacía");
-    }
-
-    if (line.getName() == null || "".equals(line.getName().trim())) {
-        throw new Exception("El nombre es obligatorio");
-    }
-
-    //BUSCA EL PRIMER CÓDIGO LIBRE
-    int number = 1;
-    boolean used = true;
-    while (used) {
-        used = false;
-        for (Line l : lineList) {
-            if (l.getNumber() == number) {
-                used = true;
-                number++;
-                break;
-            }
+    @Override
+    public void insert(Line line) throws Exception {
+        if(line == null)
+        {
+            throw new Exception("La Línea está vacía");
         }
+        
+        if("".equals(line.getName()))
+        {
+            throw new Exception("El nombre es obligatorio");
+        }
+        
+        dbLine.insert(line);
     }
-
-    line.setNumber(number);
-    lineList.add(line);
-}
 
     @Override
     public void update(Line line) throws Exception {
-        if (line == null) {
-            throw new Exception("La línea está vacía");
+        if(line == null)
+        {
+            throw new Exception("La Línea está vacía");
         }
-
-        if (line.getNumber() == 0) {
-            throw new Exception("El código es obligatorio");
+        
+        if(line.getId() == 0)
+        {
+            throw new Exception("El Id es obligatorio");
         }
-
-        if ("".equals(line.getName())) {
+        
+        if("".equals(line.getName()))
+        {
             throw new Exception("El nombre es obligatorio");
         }
-
         
-        boolean exists = false;
-        for (int i = 0; i < lineList.size(); i++) {
-            if (lineList.get(i).getNumber() == line.getNumber()) {
-                lineList.set(i, line);   
-                exists = true;
-                break;
-            }
+        //verificar existencia de la linea a actualizar
+        Line lineExist = find(line.getId());
+        if(lineExist == null)
+        {
+            throw new Exception("No existe el registro a actualizar");
         }
-
-        if (!exists) {
-            throw new Exception("La línea NO EXISTE!!!");
-        }
-    }
-
-    @Override
-    public void delete(int number) throws Exception {
-        if (number == 0) {
-            throw new Exception("El código es obligatorio");
-        }
-
         
-        boolean exists = false;
-        for (int i = 0; i < lineList.size(); i++) {
-            if (lineList.get(i).getNumber() == number) {
-                lineList.remove(i);   
-                exists = true;
-                break;
-            }
-        }
-
-        if (!exists) {
-            throw new Exception("La línea NO EXISTE!!!");
-        }
+        dbLine.update(line);
     }
 
     @Override
-    public Line find(int number) throws Exception {
-        if (number == 0) {
-            throw new Exception("El código es obligatorio");
+    public void delete(int id) throws Exception {
+        if(id == 0)
+        {
+            throw new Exception("El id es obligatorio");
         }
-
-
-        return dbline.find(id);
+        
+        //verificar existencia de la linea a eliminar
+        Line lineExist = find(id);
+        if(lineExist == null)
+        {
+            throw new Exception("No existe el registro a eliminar");
+        }
+        
+        dbLine.delete(id);
     }
 
     @Override
-    public List<Line> findAll() throws Exception {
-        return dbline.findALL();
+    public Line find(int id) throws Exception {
+        if(id == 0)
+        {
+            throw new Exception("El id es obligatorio");
+        }
+        
+        return (Line) dbLine.find(id);
     }
+
+    @Override
+     public List<Line> findAll() throws Exception {
+        return dbLine.findAll();
+                
+    }
+    
 }

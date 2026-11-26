@@ -5,29 +5,30 @@
 package AgentAMODEL;
 
 /**
- * fecha:29/10/2026 
- * objetivo: hacer el modelo de galpon
- * @author Camilo
+ * Fecha: 28 / 10 / 2026
+ * @author camilo
+ * Objetivo: modelo galpón
  */
 public class Shed {
-
-    public void setName(String name) {
-        this.state = name;
-    }
-
-    public void setId(int number) {
-        this.number = number;
-    }
-
+    private int id;
     private int number;
-    private String state;
-
+    private String status;
+    
     public Shed() {
     }
 
-    public Shed(int number, String state) {
+    public Shed(int id, int number, String status) {
+        this.id = id;
         this.number = number;
-        this.state = state;
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumber() {
@@ -38,17 +39,19 @@ public class Shed {
         this.number = number;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return number + "-" + state;
+        return number + " - " + status;
     }
 
+    
 }
+

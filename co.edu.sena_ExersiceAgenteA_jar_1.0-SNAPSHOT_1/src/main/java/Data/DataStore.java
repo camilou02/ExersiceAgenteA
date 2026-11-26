@@ -6,7 +6,6 @@ package Data;
 
 import AgentAMODEL.Line;
 import AgentAMODEL.Shed;
-import static AgenteACONTROLLER.ShedController.shedList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +22,9 @@ public class DataStore {
 
     static {
         // Carga inicial de datos
-        shedList.add(new Shed(1, "DISPONIBLE"));
-        shedList.add(new Shed(2, "DISPONIBLE"));
-        shedList.add(new Shed(3, "OCUPADO"));
+//        shedList.add(new Shed(1, "DISPONIBLE"));
+//        shedList.add(new Shed(2, "DISPONIBLE"));
+//        shedList.add(new Shed(3, "OCUPADO"));
 
         lineList.add(new Line(1, "Gallina Backcock"));
         lineList.add(new Line(2, "Gallina jersey blanca gigante"));
